@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+        <header>
+        <nav class="navbar">
+            <a href="#" class="logo"><img src="uds logo2.jpg" alt="uds logo"></a>
+            <div class="divider"></div>
+            <div class="navbar__brand">
+                <h1>UNIVERSITY FOR DEVELOPMENT STUDIES (UDS)</h1>
+                <h3 id="navbar__brand">Nyankpala Campus</h3>
+            </div>
+            <button class="navbar-toggle" id="navbar-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="navbar-links" id="navbar-links">
+                 <span class="navbar-user" id="user-greeting"></span>
+                
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-target="home">Home</a></li>
+                        <li><a href="#" class="nav-link" data-target="hostels" id="hostels-link">Hostels</a></li>
+                        <li><a href="#" class="nav-link" data-target="bookings" id="bookings-link">My Bookings</a></li>
+                        <li><a href="#" class="nav-link" data-target="admin" id="admin-link" style="display:none;">Admin</a></li>
+                        
+                    </ul>
+                </nav>
+                <div class="user-actions">
+
+                    <button id="auth-btn" class="btn btn-primary">Login / Signup</button>
+                    <button id="logout-btn" style="display:none;">Logout</button>
+                </div>
+            </div>
+            
+        </nav>
+    </header>
+           
+
+    <div class="modal" id="auth-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-header">Welcome to Hostel Manager</h2>
+                <h3 id="modal-header">Please Login or Signup to book a hostel</h3>
+                <!-- <div class="close-modal">&times;</div> -->
+            </div>
+            <div class="tabs">
+                <div class="tab active" data-tab="login">Login</div>
+                <div class="tab" data-tab="signup">Sign Up</div>
+            </div>
+            <div class="modal-body">
+                <div id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" class="form-control" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" class="form-control" placeholder="Enter your password">
+                    </div>
+                    <button class="btn btn-primary" id="login-btn">Login</button>
+                </div>
+                <div id="signup-form" style="display: none;">
+                    <div class="form-group">
+                        <label for="signup-name">Full Name</label>
+                        <input type="text" id="signup-name" class="form-control" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" class="form-control" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" class="form-control" placeholder="Create a password">
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-confirm">Confirm Password</label>
+                        <input type="password" id="signup-confirm" class="form-control" placeholder="Confirm your password">
+                    </div>
+                    <button class="btn btn-primary signup-btn">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-content">
+        <div class="view active" id="home-view">
+            <section class="hero">
+                <div class="hero__content">
+                    <h1>NYAKPALA CAMPUS HOSTEL MANAGER</h1>
+                    <P><b>Congratulations!!</b> on your admission to one of the most prestigious Universities in
+                        the World. The Baobab family is an inclusive one and uniquely placed to accompany you on the path
+                        to progress. We are happy you have chosen <b>UDS</b> for your next level of education and life. We will
+                        reciprocate this confidence you have invested in our community by attending to your needs as much
+                        as we can. Dear student, know that, hostel bookings and reservation at the UDS
+                        Campus has now been digitalized. You don't have to relly on ant third party like the "Hostel Agents" for hostel bookings,
+                        reservations and payments, no need to stress yourself looking for hostels here and there. Over here, we get you coonnected
+                        to the landlords of the various hostels at our campus, give you the necessary information you need to know about the hostel you'll
+                        like to book or reserve. We urge you to use this our platform to make bookings or resevations.<br>
+                        <b>Thank You</b>
+                    </P>
+                </div>
+            </section>
+            <h2 id="features">What we offer!!</h2>
+            <section class="features" id="system-info">
+                <div class="card">
+                    <i class="fas fa-building-columns"></i>
+                    <p>Campus Managed Hostels </p>
+                    <h6>Hostels affiliated with government bodies or institutions,
+                        featuring official rules and fee structure.
+                    </h6>
+                </div>
+                <div class="card">
+                    <i class="fas fa-user-tie"></i>
+                    <p>privately Managed Hostels </p>
+                    <h6>Hostels run by individual landlord or private companies with detailed
+                        profiles, reviews, and independent rules.
+                    </h6>
+                </div>
+                <div class="card">
+                    <i class="fas fa-shield"></i>
+                    <p>Verified & Secure Applcation</p>
+                    <h6>Students can access verified landlord information
+                        to build trust, have more information regarding the hostel's current state
+                        and also minimize the risk of falling victim of fraudulent listing.
+                    </h6>
+                </div>
+                <div class="card">
+                    <i class="fas fa-file-lines"></i>
+                    <p>Full Transparency Before Booking</p>
+                    <h6>Student recieve comprehensive information about the hostel to be booked
+                        i.e; accomodation type, utility costs, hostel policies and management structures-ensuring
+                        every decision is well-informed and secure.
+                    </h6>
+                </div>
+                <div class="card">
+                    <i class="fas fa-clock-rotate-left"></i>
+                    <p>Real-Time Room Availability & Monitoring</p>
+                    <h6>This platform provides a live trackking feature that shows Real-Time
+                        updates on available rooms and and hostels, reducing uncertainty and enhancing safety
+                        in the booking process.
+                    </h6>
+                </div>
+                <div class="card">
+                    <i class="fas fa-person-walking"></i>
+                    <p>Walking distantace to Campus</p>
+                    <h6>Students can view how far hostels are from campus, making it easier
+                        to pick locations that are convenient and time-saving for daily commutes.
+                    </h6>
+                </div>
+                <div class="card">
+                    <i class="fas fa-money-check-dollar"></i>
+                    <p>Online Payment Option</p>
+                    <h6>Students can make safe, cashless transactions through the platform using verified
+                        online payment methods reducing the risk and improving convinience for all parties.
+                    </h6>
+                </div>
+                <div class="card">
+                    <i class="fas fa-hotel"></i>
+                    <p>Hostel's Policies </p>
+                    <h6>Students can view the hostel's policies and rules before booking, ensuring
+                        that they are aware of the terms and conditions of their stay.
+                    </h6>
+                </div>
+            </section>
+            <h2>About Us</h2>
+            <div class=" about-section">
+                <section id="about">
+                    <p>The <strong>UDS Nyankpala Campus Hostel Manager System</strong> — your go-to platform for finding and managing hostel accommodation with ease and confidence.
+                        Whether you're looking for a campus-managed or private hostel, you’ll get verified information, real-time room updates, and full details before you book.
+                    </p>
+                    <p>We've made it simple to handle everything from online payments to tracking how close your hostel is to campus.
+                        Plus, with your own personalized dashboard, managing bookings, payments, and preferences has never been easier.
+                        It's all about making your hostel experience better, safer, and stress-free.
+                    </p>
+                </section>
+            </div>
+            <h2>Some key areas <br> of this System </h2>
+            <div class="about-n">
+                <div class="icons-set">
+                    <div class="icons-item" id="icons-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <h3>Navigate this system through a single Dashboard</h3>
+                        <br>
+                        <p>This website is equiped with a single dashboard that is integrated with
+                            navigations such as fee payments, room alootment and also downloadable reports or receipt.
+                        </p><br>
+                        <i class="fas fa-eye"></i>
+                        <h3>Tracking Real-Time data of all available and unavailable hostels</h3>
+                        <br>
+                        <p>This website is built with a data base that keeps track and record all hostels on the platform
+                            it is to tell user the number of hostels available unavailable at a period of time.
+                        </p><br>
+                        <i class="fas fa-user-cog"></i>
+                        <h3>self-service and User friendly</h3>
+                        <br>
+                        <p>This system allows you to make your own bookings and also you'll be able to cancel any bookings or reservation.
+                            Also you are allowed to give feed-back after going through the hostel's info through this system. </p>
+                    </div>
+                </div>
+            </div>
+            <section class="hero-section">
+                <h3 class="end">connect with the UDS Institution !!</h3>
+            </section>
+            <section class="footer-section">
+                <button id="auth-btn2" class="btn btn-primary">Login / Signup</button>
+            </section>
+        </div>
+
+        <div class="view" id="hostels-view">
+            <div class="panel-header2">
+                <h1>Available Hostels</h1>
+                <p>Choose from our premium hostels near campus areas</p>
+            </div>
+            <div class="cards" id="all-hostels"></div>
+        </div>
+
+        <div class="view" id="hostel-detail-view">
+            <div class="panel-header2">
+                <h1 id="hostel-detail-name">Hostel Name</h1>
+                <p id="hostel-detail-location">Location details</p>
+            </div>
+            <div class="form-container">
+                <div class="card-img">
+                    <img id="hostel-detail-image" src="" alt="Hostel Image">
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                    <h3>About this Hostel</h3>
+                    <p id="hostel-detail-description"></p>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i class="fas fa-bed"></i> Available Rooms</label>
+                        <p id="hostel-detail-rooms"></p>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fas fa-money-bill-wave"></i> Price Per Month</label>
+                        <p id="hostel-detail-price"></p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h3>Amenities</h3>
+                    <div id="hostel-detail-amenities" class="form-row"></div>
+                </div>
+                <button class="btn btn-primary" id="book-hostel-btn" style="width: 100%; padding: 15px; margin-top: 20px;">
+                    Book This Hostel
+                </button>
+            </div>
+        </div>
+
+        <div class="view" id="booking-form-view">
+            <div class="panel-header">
+                <h1>Complete Your Booking</h1>
+                <p>Fill in your details to reserve your spot</p>
+            </div>
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="booking-hostel">Hostel</label>
+                    <input type="text" id="booking-hostel" class="form-control" readonly>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="full-name">Full Name</label>
+                        <input type="text" id="full-name" class="form-control" placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="Enter your email">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="id-number">Student ID Number</label>
+                        <input type="text" id="id-number" class="form-control" placeholder="Enter your student ID">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="check-in">Check-in Date</label>
+                        <input type="date" id="check-in" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="duration">Duration (Months)</label>
+                        <select id="duration" class="form-control">
+                            <option value="1">1 Month</option>
+                            <option value="3">3 Months</option>
+                            <option value="6">6 Months</option>
+                            <option value="12">12 Months</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="special-requests">Special Requests</label>
+                    <textarea id="special-requests" class="form-control" rows="3" placeholder="Any special requirements?"></textarea>
+                </div>
+                <button class="btn btn-primary" id="submit-booking-btn" style="width: 100%; padding: 15px;">
+                    Confirm Booking & Generate Receipt
+                </button>
+            </div>
+        </div>
+
+        <div class="view" id="receipt-view">
+            <div class="panel-header">
+                <h1>Booking Confirmed!</h1>
+                <p>Your reservation is complete. Download your receipt below.</p>
+            </div>
+            <div class="form-container">
+                <div id="receipt-content" style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <h2 style="color: Green;">Hostel Management System</h2>
+                        <p>Hostel Booking Receipt</p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+                        <div>
+                            <p><strong>Booking ID:</strong> <span id="receipt-id"></span></p>
+                            <p><strong>Date:</strong> <span id="receipt-date"></span></p>
+                        </div>
+                        <div>
+                            <p><strong>Payment Reference:</strong> <span id="receipt-ref"></span></p>
+                            <p><strong>Status:</strong> <span class="status status-pending">Pending Payment</span></p>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h3>Booking Details</h3>
+                        <p><strong>Hostel:</strong> <span id="receipt-hostel"></span></p>
+                        <p><strong>Duration:</strong> <span id="receipt-duration"></span></p>
+                        <p><strong>Check-in Date:</strong> <span id="receipt-checkin"></span></p>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h3>Guest Information</h3>
+                        <p><strong>Name:</strong> <span id="receipt-name"></span></p>
+                        <p><strong>Email:</strong> <span id="receipt-email"></span></p>
+                        <p><strong>Phone:</strong> <span id="receipt-phone"></span></p>
+                        <p><strong>Student ID:</strong> <span id="receipt-student-id"></span></p>
+                    </div>
+                    <div style="margin-bottom: 30px;">
+                        <h3>Payment Instructions</h3>
+                        <p>Please make payment using the reference code above via mobile money or bank transfer.</p>
+                        <p>Amount: <strong id="receipt-amount"></strong></p>
+                        <p>Mobile Money: <b>053 345 5248</b></p>
+                        <p>Bank Account: <b>6151 0723 97003</b></p>
+                        <p>Payment must be completed within 48 hours to confirm your booking.</p>
+            
+                    </div>
+                    <div style="text-align: center; color: #888; font-size: 14px;">
+                        <p>Thank you for choosing HostelPro!</p>
+                        <p>Contact us at abdulbaasit814@gmail.com.com for any assistance</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 15px; margin-top: 20px;">
+                    <button class="btn btn-primary" id="download-receipt-btn" style="flex: 1;">
+                        <i class="fas fa-download"></i> Download Receipt
+                    </button>
+                    <button class="btn btn-outline" id="new-booking-btn" style="flex: 1;">
+                        <i class="fas fa-plus"></i> New Booking
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="view" id="bookings-view">
+            <div class="panel-header" style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                  <h1>My Bookings</h1>
+                  <p>All your hostel reservations</p>
+                </div>
+                <button class="btn btn-outline" id="new-booking-btn-bookings" style="height:40px;align-self:flex-start;">
+                  <i class="fas fa-plus"></i> New Booking
+                </button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Hostel</th>
+                            <th>Check-in</th>
+                            <th>Duration</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="my-bookings"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Replace this: -->
+<!-- <div class="view" id="admin-dashboard-view"> -->
+<!-- With this: -->
+<div class="view" id="admin-view">
+    <div class="panel-header2">
+        <h1>Admin Dashboard</h1>
+        <p>Manage hostels, bookings, and rooms in real time</p>
+    </div>
+    <div class="panel-header2">
+        <h2>Add New Hostel</h2>
+        <p>Enter details for a new hostel below</p>
+    </div>
+    <div id="admin-add-hostel-form" class="form-container" style="margin-bottom: 25px;">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="new-hostel-name">Name</label>
+                <input type="text" id="new-hostel-name" class="form-control" placeholder="Hostel Name">
+            </div>
+            <div class="form-group">
+                <label for="new-hostel-location">Location</label>
+                <input type="text" id="new-hostel-location" class="form-control" placeholder="Location">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="new-hostel-rooms">Rooms</label>
+                <input type="number" id="new-hostel-rooms" class="form-control" min="1" value="1">
+            </div>
+            <div class="form-group">
+                <label for="new-hostel-price">Price/Month</label>
+                <input type="number" id="new-hostel-price" class="form-control" min="1" value="100">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="new-hostel-image">Image URL</label>
+            <input type="text" id="new-hostel-image" class="form-control" placeholder="Image URL">
+        </div>
+        <div class="form-group">
+            <label for="new-hostel-amenities">Amenities (comma separated)</label>
+            <input type="text" id="new-hostel-amenities" class="form-control" placeholder="WiFi, Laundry, Security">
+        </div>
+        <div class="form-group">
+            <label for="new-hostel-description">Description</label>
+            <textarea id="new-hostel-description" class="form-control" rows="2" placeholder="Hostel description"></textarea>
+        </div>
+        <button class="btn btn-primary" id="add-hostel-btn" style="width: 100%; margin-top: 10px;">Add Hostel</button>
+    </div>
+    <div class="stats">
+        <div class="stat-card">
+            <i class="fas fa-home fa-2x"></i>
+            <div class="number" id="hostel-count"></div>
+            <div class="label">Hostels</div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-bed fa-2x"></i>
+            <div class="number" id="room-count"></div>
+            <div class="label">Total Rooms</div>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-calendar-check fa-2x"></i>
+            <div class="number" id="admin-booking-count"></div>
+            <div class="label">Total Bookings</div>
+        </div>
+    </div>
+    <div class="panel-header2">
+        <h2>Update Hostel Rooms & Remove Hostel</h2>
+        <p>Change available rooms or remove hostels below</p>
+    </div>
+    <div id="admin-hostel-list"></div>
+    <div class="panel-header2">
+        <h2>All Bookings</h2>
+        <p>Latest reservations</p>
+    </div>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Hostel</th>
+                    <th>Student</th>
+                    <th>Check-in</th>
+                    <th>Duration</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="admin-bookings"></tbody>
+        </table>
+    </div>
+</div>
+    <div class="notification" id="notification"><span id="notification-message"></span></div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <i class="fas fa-building"></i> Hostel Management System
+                </div>
+                <p>Your trusted partner for student accommodation since 2025</p>
+                <div class="social-links">
+                    
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <p>&copy; 2025 Hostel Management System. All rights reserved.</p>
+            </div>
+        </div>
+        <p>Price: </p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
